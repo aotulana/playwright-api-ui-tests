@@ -1,5 +1,4 @@
-// playwright-dev-page.ts
-import { expect, Locator, Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 
 export class LoginPage {
   readonly page: Page;
