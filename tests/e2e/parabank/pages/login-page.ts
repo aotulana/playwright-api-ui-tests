@@ -20,6 +20,7 @@ export class LoginPage {
   readonly registerationPasswordInput: Locator;
   readonly registerationconfirmPasswordInput: Locator;
   readonly registerButton: Locator;
+  readonly successfulSignupText: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -27,9 +28,9 @@ export class LoginPage {
     //login form
     this.loginUsernameInput = page.locator('[name=username]');
     this.loginPasswordInput = page.locator('[name=password]');
-    this.loginButton = page.locator('input:has-text("Log in")');
-    this.registerLink = page.locator('a:has-text("Register")');
-    this.welcomeText = page.locator('b:has-text("Welcome")');
+    this.loginButton = page.getByRole('button', { name: 'Log In' });
+    this.registerLink = page.getByRole('link', { name: 'Register' });
+    this.welcomeText = page.getByText('Welcome');
 
     //registeration form
     this.firstNameInput = page.locator('id=customer.firstName');
@@ -46,6 +47,9 @@ export class LoginPage {
       'id=repeatedPassword'
     );
     this.registerButton = page.locator('input:has-text("Register")');
+    this.successfulSignupText = page.getByText(
+      'Your account was created successfully. You are now logged in.'
+    );
   }
 
   async goToLoginPage() {

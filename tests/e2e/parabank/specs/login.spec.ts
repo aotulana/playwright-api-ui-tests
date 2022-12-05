@@ -17,5 +17,5 @@ test('new user should be able to register', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goToLoginPage();
   await loginPage.registerNewUser();
-  expect(loginPage.welcomeText).toBeTruthy();
+  expect(loginPage.successfulSignupText).toBeTruthy();
 });
