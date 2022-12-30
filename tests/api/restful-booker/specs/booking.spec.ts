@@ -2,7 +2,7 @@ import test, { APIRequestContext, expect } from '@playwright/test';
 import {
   getBooking,
   getBookingIdsRequest,
-  getFirstBookingIds,
+  getBookingIds,
 } from '../requests/booking';
 
 test.use({
@@ -22,7 +22,7 @@ test.describe('Booking: GetBookingIds', () => {
 
 test.describe('Booking: GetBooking', () => {
   test(`should return booking details`, async ({ request }) => {
-    const bookingId = await getFirstBookingIds(request).then(
+    const bookingId = await getBookingIds(request).then(
       (bookingIds) => bookingIds[0].bookingid
     );
 

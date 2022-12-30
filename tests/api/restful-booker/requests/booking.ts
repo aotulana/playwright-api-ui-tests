@@ -4,7 +4,7 @@ export const getBookingIdsRequest = async (request: APIRequestContext) => {
   return await request.get('/booking');
 };
 
-export const getFirstBookingIds = async (request: APIRequestContext) => {
+export const getBookingIds = async (request: APIRequestContext) => {
   return await getBookingIdsRequest(request).then(
     async (response) => await response.json()
   );
