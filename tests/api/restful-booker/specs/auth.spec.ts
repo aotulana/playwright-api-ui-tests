@@ -1,15 +1,10 @@
 import test, { APIRequestContext, expect } from '@playwright/test';
+import { postAuthRequest } from '../requests/auth';
 
 test.use({
   baseURL: 'https://restful-booker.herokuapp.com',
   extraHTTPHeaders: { 'Content-Type': 'application/json' },
 });
-
-const postAuthRequest = async (request: APIRequestContext, data: {}) => {
-  return await request.post('/auth', {
-    data,
-  });
-};
 
 test.describe('Auth: create token', () => {
   const invalidCredentials = [
