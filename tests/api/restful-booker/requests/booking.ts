@@ -1,7 +1,9 @@
 import { APIRequestContext } from '@playwright/test';
 
+const BOOKING_ENDPOINT_BASE_PATH = '/booking';
+
 export const getBookingIdsRequest = async (request: APIRequestContext) => {
-  return await request.get('/booking');
+  return await request.get(BOOKING_ENDPOINT_BASE_PATH);
 };
 
 export const getBookingIds = async (request: APIRequestContext) => {
@@ -11,5 +13,9 @@ export const getBookingIds = async (request: APIRequestContext) => {
 };
 
 export const getBooking = async (request: APIRequestContext, id: number) => {
-  return await request.get(`/booking/${id}`);
+  return await request.get(`${BOOKING_ENDPOINT_BASE_PATH}/${id}`);
+};
+
+export const createBooking = async (request: APIRequestContext, data: {}) => {
+  return await request.post(BOOKING_ENDPOINT_BASE_PATH, { data });
 };

@@ -3,6 +3,7 @@ import {
   getBooking,
   getBookingIdsRequest,
   getBookingIds,
+  createBooking,
 } from '../requests/booking';
 
 test.use({
@@ -44,5 +45,28 @@ test.describe('Booking: GetBooking', () => {
     const response = await getBooking(request, bookingId);
     expect(response.status()).toBe(404);
     expect(await response.text()).toBe('Not Found');
+  });
+});
+
+test.describe('Booking: CreateBooking', () => {
+  const booking = {
+    firstname: 'Jim',
+    lastname: 'Brown',
+    totalprice: 111,
+    depositpaid: true,
+    bookingdates: {
+      checkin: '2018-01-01',
+      checkout: '2019-01-01',
+    },
+    additionalneeds: 'Breakfast',
+  };
+
+  test('should return booking with bookingid', async ({ request }) => {
+    const response = await createBooking(request, booking);
+    await expect(response).toBeOK();
+
+    const responseJson = await response.json();
+    expect(responseJson).toHaveProperty('bookingid');
+    expect(responseJson.booking).toStrictEqual(booking);
   });
 });
