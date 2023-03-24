@@ -1,4 +1,4 @@
-import test, { APIRequestContext, expect } from '@playwright/test';
+import test, { expect } from '@playwright/test';
 import { postAuthRequest } from '../requests/auth';
 
 test.use({

@@ -16,6 +16,9 @@ export const getBooking = async (request: APIRequestContext, id: number) => {
   return await request.get(`${BOOKING_ENDPOINT_BASE_PATH}/${id}`);
 };
 
-export const createBooking = async (request: APIRequestContext, data: {}) => {
+export const createBooking = async (
+  request: APIRequestContext,
+  data: object
+) => {
   return await request.post(BOOKING_ENDPOINT_BASE_PATH, { data });
 };

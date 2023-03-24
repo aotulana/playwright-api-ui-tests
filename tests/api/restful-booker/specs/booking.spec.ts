@@ -1,4 +1,4 @@
-import test, { APIRequestContext, expect } from '@playwright/test';
+import test, { expect } from '@playwright/test';
 import {
   getBooking,
   getBookingIdsRequest,
@@ -22,7 +22,7 @@ test.describe('Booking: GetBookingIds', () => {
 });
 
 test.describe('Booking: GetBooking', () => {
-  test(`should return booking details`, async ({ request }) => {
+  test('should return booking details', async ({ request }) => {
     const bookingId = await getBookingIds(request).then(
       (bookingIds) => bookingIds[0].bookingid
     );
@@ -39,7 +39,7 @@ test.describe('Booking: GetBooking', () => {
     expect(responseJson).toHaveProperty('bookingdates.checkout');
   });
 
-  test(`should return 404 Not Found`, async ({ request }) => {
+  test('should return 404 Not Found', async ({ request }) => {
     const bookingId = 0;
 
     const response = await getBooking(request, bookingId);
