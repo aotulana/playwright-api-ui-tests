@@ -5,13 +5,31 @@
   "main": "index.js",
   "scripts": {
     "test:api": "playwright test --project=api",
-    "test:e2e": "playwright test --project=e2e"
+    "test:e2e": "playwright test --project=e2e",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged",
+    "format": "prettier --write .",
+    "lint": "eslint --ext .ts --fix --max-warnings 0 ."
+  },
+  "lint-staged": {
+    "*.ts": [
+      "npm run lint"
+    ],
+    "*.{js,md}": [
+      "npm run format"
+    ]
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.32.0",
-    "prettier": "2.7.1"
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.6"
   }
 }
