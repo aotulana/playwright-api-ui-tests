@@ -1,5 +1,6 @@
 import test, { expect } from '@playwright/test';
 import { postAuthRequest } from '../requests/auth';
+import { user } from '../fixtures/data/user';
 
 test.use({
   baseURL: 'https://restful-booker.herokuapp.com',
@@ -15,15 +16,12 @@ test.describe('Auth: create token', () => {
     {},
   ];
 
-  const validCredential = {
-    username: 'admin',
-    password: 'password123',
-  };
+  const validCredential = user;
 
   invalidCredentials.forEach((invalidCredential) => {
-    test(`should return "Bad credentials" for "${invalidCredential.username}" and "${invalidCredential.password}"`, async ({
-      request,
-    }) => {
+    test(`should return "Bad credentials" for ${JSON.stringify(
+      invalidCredential
+    )}`, async ({ request }) => {
       const response = await postAuthRequest(request, invalidCredential);
 
       expect(await response.json()).toHaveProperty('reason', 'Bad credentials');
