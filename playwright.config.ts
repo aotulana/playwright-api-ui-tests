@@ -1,5 +1,4 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
-import { devices } from '@playwright/test';
 
 /**
  * Read environment variables from file.
@@ -48,7 +47,6 @@ const config: PlaywrightTestConfig = {
       name: 'e2e',
       testDir: './tests/e2e',
       use: {
-        ...devices['Desktop Chrome'],
         trace: 'retain-on-failure',
       },
     },
@@ -102,7 +100,7 @@ const config: PlaywrightTestConfig = {
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  // outputDir: 'test-results/',
+  outputDir: 'test-results/',
 
   /* Run your local dev server before starting the tests */
   // webServer: {
