@@ -22,3 +22,15 @@ export const createBooking = async (
 ) => {
   return await request.post(BOOKING_ENDPOINT_BASE_PATH, { data });
 };
+
+export const updateBooking = async (
+  request: APIRequestContext,
+  headers: { [key: string]: string },
+  id: number,
+  data: object
+) => {
+  return await request.put(`${BOOKING_ENDPOINT_BASE_PATH}/${id}`, {
+    data,
+    headers,
+  });
+};

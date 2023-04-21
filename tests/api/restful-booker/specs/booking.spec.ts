@@ -1,9 +1,13 @@
-import test, { expect } from '@playwright/test';
+import test, { APIResponse, expect } from '@playwright/test';
+import { user } from '../fixtures/data/user';
+import { booking } from '../fixtures/data/booking';
+import { postAuthRequest } from '../requests/auth';
 import {
   getBooking,
   getBookingIdsRequest,
   getBookingIds,
   createBooking,
+  updateBooking,
 } from '../requests/booking';
 
 test.use({
@@ -22,7 +26,9 @@ test.describe('Booking: GetBookingIds', () => {
 });
 
 test.describe('Booking: GetBooking', () => {
-  test('should return booking details', async ({ request }) => {
+  test('should return booking details when booking ID is valid', async ({
+    request,
+  }) => {
     const bookingId = await getBookingIds(request).then(
       (bookingIds) => bookingIds[0].bookingid
     );
@@ -39,7 +45,9 @@ test.describe('Booking: GetBooking', () => {
     expect(responseJson).toHaveProperty('bookingdates.checkout');
   });
 
-  test('should return 404 Not Found', async ({ request }) => {
+  test('should return 404 Not Found when booking ID is invalid', async ({
+    request,
+  }) => {
     const bookingId = 0;
 
     const response = await getBooking(request, bookingId);
@@ -49,24 +57,58 @@ test.describe('Booking: GetBooking', () => {
 });
 
 test.describe('Booking: CreateBooking', () => {
-  const booking = {
-    firstname: 'Jim',
-    lastname: 'Brown',
-    totalprice: 111,
-    depositpaid: true,
-    bookingdates: {
-      checkin: '2018-01-01',
-      checkout: '2019-01-01',
-    },
-    additionalneeds: 'Breakfast',
-  };
-
-  test('should return booking with bookingid', async ({ request }) => {
+  test('should return new booking with bookingid', async ({ request }) => {
     const response = await createBooking(request, booking);
     await expect(response).toBeOK();
 
     const responseJson = await response.json();
     expect(responseJson).toHaveProperty('bookingid');
     expect(responseJson.booking).toStrictEqual(booking);
+  });
+});
+
+test.describe('Booking: UpdateBooking', () => {
+  let token: string;
+  let bookingId: number;
+  let response: APIResponse;
+  let responseJson: any;
+
+  test.beforeAll(async ({ request }) => {
+    bookingId = await getBookingIds(request).then(
+      (bookingIds) => bookingIds[0].bookingid
+    );
+  });
+
+  test('should return forbidden when no token is provided', async ({
+    request,
+  }) => {
+    response = await updateBooking(request, {}, bookingId, booking);
+    await expect(response).not.toBeOK();
+    expect(await response.text()).toEqual('Forbidden');
+  });
+
+  test('should return updated booking details', async ({ request }) => {
+    // Get token
+    response = await postAuthRequest(request, user);
+    await expect(response).toBeOK();
+
+    responseJson = await response.json();
+    token = responseJson.token;
+
+    const extraHTTPHeaders = {
+      Cookie: `token=${token}`,
+    };
+
+    // Update booking with token
+    response = await updateBooking(
+      request,
+      extraHTTPHeaders,
+      bookingId,
+      booking
+    );
+    await expect(response).toBeOK();
+
+    responseJson = await response.json();
+    expect(responseJson).toStrictEqual(booking);
   });
 });
