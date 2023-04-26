@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { formatDate } from '../../../../utils/formatDate';
+import { formatDate } from '../../../../utils/format-date';
 
 const currentDate = new Date();
 
