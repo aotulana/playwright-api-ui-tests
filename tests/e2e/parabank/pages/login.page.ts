@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, selectors } from '@playwright/test';
 import { userDetails } from '../fixtures/user-registration';
 
 export class LoginPage {
@@ -33,19 +33,19 @@ export class LoginPage {
     this.welcomeText = page.getByText('Welcome');
 
     //registeration form
-    this.firstNameInput = page.locator('id=customer.firstName');
-    this.lastNameInput = page.locator('id=customer.lastName');
-    this.addressInput = page.locator('id=customer.address.street');
-    this.cityInput = page.locator('id=customer.address.city');
-    this.stateInput = page.locator('id=customer.address.state');
-    this.zipCodeInput = page.locator('id=customer.address.zipCode');
-    this.phoneNumberInput = page.locator('id=customer.phoneNumber');
-    this.ssnInput = page.locator('id=customer.ssn');
-    this.registerationUsernameInput = page.locator('id=customer.username');
-    this.registerationPasswordInput = page.locator('id=customer.password');
-    this.registerationconfirmPasswordInput = page.locator(
-      'id=repeatedPassword'
-    );
+    selectors.setTestIdAttribute('id');
+    this.firstNameInput = page.getByTestId('customer.firstName');
+    this.lastNameInput = page.getByTestId('customer.lastName');
+    this.addressInput = page.getByTestId('customer.address.street');
+    this.cityInput = page.getByTestId('customer.address.city');
+    this.stateInput = page.getByTestId('customer.address.state');
+    this.zipCodeInput = page.getByTestId('customer.address.zipCode');
+    this.phoneNumberInput = page.getByTestId('customer.phoneNumber');
+    this.ssnInput = page.getByTestId('customer.ssn');
+    this.registerationUsernameInput = page.getByTestId('customer.username');
+    this.registerationPasswordInput = page.getByTestId('customer.password');
+    this.registerationconfirmPasswordInput =
+      page.getByTestId('repeatedPassword');
     this.registerButton = page.locator('input:has-text("Register")');
     this.successfulSignupText = page.getByText(
       'Your account was created successfully. You are now logged in.'
