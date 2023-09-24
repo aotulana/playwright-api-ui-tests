@@ -54,6 +54,10 @@ const config: PlaywrightTestConfig = {
     {
       name: 'api',
       testDir: './tests/api',
+      use: {
+        baseURL: 'https://restful-booker.herokuapp.com',
+        extraHTTPHeaders: { 'Content-Type': 'application/json' },
+      },
     },
 
     // {

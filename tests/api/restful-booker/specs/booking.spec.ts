@@ -10,10 +10,6 @@ import {
   updateBooking,
 } from '../requests/booking';
 
-test.use({
-  baseURL: 'https://restful-booker.herokuapp.com',
-});
-
 test.describe('Booking: GetBookingIds', () => {
   test('should return all IDs', async ({ request }) => {
     const response = await getBookingIdsRequest(request);

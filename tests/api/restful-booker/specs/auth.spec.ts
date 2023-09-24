@@ -2,11 +2,6 @@ import test, { expect } from '@playwright/test';
 import { postAuthRequest } from '../requests/auth';
 import { user } from '../fixtures/data/user';
 
-test.use({
-  baseURL: 'https://restful-booker.herokuapp.com',
-  extraHTTPHeaders: { 'Content-Type': 'application/json' },
-});
-
 test.describe('Auth: create token', () => {
   const invalidCredentials = [
     { username: '', password: '' },
