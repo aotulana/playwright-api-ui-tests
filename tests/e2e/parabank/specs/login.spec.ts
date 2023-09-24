@@ -5,19 +5,24 @@ test.describe('Login', () => {
   test('should be able to login user with valid credentials ', async ({
     page,
   }) => {
-    const username = 'john';
-    const password = 'demo';
+    const username = process.env.E2E_USERNAME;
+    const password = process.env.E2E_PASSWORD;
 
     const loginPage = new LoginPage(page);
     await loginPage.goToLoginPage();
     await loginPage.login(username, password);
-    expect(loginPage.welcomeText).toBeTruthy();
+    await expect(loginPage.welcomeText).toBeVisible();
   });
 
-  test('should be able to register new user ', async ({ page }) => {
+  test('should not be able to login user with invalid credentials ', async ({
+    page,
+  }) => {
+    const username = 'invalid';
+    const password = 'user';
+
     const loginPage = new LoginPage(page);
     await loginPage.goToLoginPage();
-    await loginPage.registerNewUser();
-    expect(loginPage.successfulSignupText).toBeTruthy();
+    await loginPage.login(username, password);
+    await expect(loginPage.loginErrorMessage).toBeVisible();
   });
 });

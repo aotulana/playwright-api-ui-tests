@@ -1,4 +1,4 @@
 export const user = {
-  username: 'admin',
-  password: 'password123',
+  username: process.env.API_USERNAME,
+  password: process.env.API_PASSWORD,
 };
