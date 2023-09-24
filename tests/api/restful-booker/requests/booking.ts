@@ -27,10 +27,20 @@ export const updateBooking = async (
   request: APIRequestContext,
   headers: { [key: string]: string },
   id: number,
-  data: object
+  data: object,
+  partialUpdate = false
 ) => {
-  return await request.put(`${BOOKING_ENDPOINT_BASE_PATH}/${id}`, {
-    data,
-    headers,
-  });
+  const requestUrl = `${BOOKING_ENDPOINT_BASE_PATH}/${id}`;
+
+  if (!partialUpdate) {
+    return await request.put(requestUrl, {
+      data,
+      headers,
+    });
+  } else {
+    return await request.patch(requestUrl, {
+      data,
+      headers,
+    });
+  }
 };
