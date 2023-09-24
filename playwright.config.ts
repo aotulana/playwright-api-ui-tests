@@ -1,10 +1,11 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
+import dotenv from 'dotenv';
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
+dotenv.config();
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -47,6 +48,7 @@ const config: PlaywrightTestConfig = {
       name: 'e2e',
       testDir: './tests/e2e',
       use: {
+        baseURL: 'https://parabank.parasoft.com',
         trace: 'retain-on-failure',
       },
     },
