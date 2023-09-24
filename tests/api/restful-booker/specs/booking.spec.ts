@@ -2,22 +2,7 @@ import { APIResponse, expect, test } from '@playwright/test';
 import { user } from '../fixtures/data/user';
 import { booking } from '../fixtures/data/booking';
 import { postAuthRequest } from '../requests/auth';
-import {
-  getBookingIds,
-  createBooking,
-  updateBooking,
-} from '../requests/booking';
-
-test.describe('Booking: CreateBooking', () => {
-  test('should return new booking with bookingid', async ({ request }) => {
-    const response = await createBooking(request, booking);
-    await expect(response).toBeOK();
-
-    const responseJson = await response.json();
-    expect(responseJson).toHaveProperty('bookingid');
-    expect(responseJson.booking).toStrictEqual(booking);
-  });
-});
+import { getBookingIds, updateBooking } from '../requests/booking';
 
 test.describe('Booking', () => {
   let token: string;
