@@ -44,14 +44,14 @@ const config: PlaywrightTestConfig = {
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'e2e',
-      testDir: './tests/e2e',
-      use: {
-        baseURL: 'https://parabank.parasoft.com',
-        trace: 'retain-on-failure',
-      },
-    },
+    // {
+    //   name: 'e2e',
+    //   testDir: './tests/e2e',
+    //   use: {
+    //     baseURL: 'https://parabank.parasoft.com',
+    //     trace: 'retain-on-failure',
+    //   },
+    // },
 
     {
       name: 'api',

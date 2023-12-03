@@ -17,7 +17,9 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
+      - name: Run Unit Tests
+        run: npm run test:unit
+      - name: Run Playwright Tests
         run: npx playwright test
         env:
           API_USERNAME: ${{ secrets.API_USERNAME }}
